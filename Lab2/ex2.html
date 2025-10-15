@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exercise 2 - Lab 2</title>
+    <link rel="icon" type="image/x-icon" href="assets\logo-vector-IU-01.png">
+    <link rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.4/dist/jquery.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+</head>
+<div class="container my-4">
+    <style>
+        h2 {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-top: 1rem;
+            margin-bottom: 0.5rem;
+            color: #007E7E;
+        }
+        h1 {
+            color: #007E7E;
+        }
+    </style>
+    <body>
+        <header>
+            <img src="assets\logo-vector-IU-01.png" alt="Logo" style="width:100px;">
+        </header>
+        <h1>Survey</h1>
+        <p>If you have a moment, we'd appreciate it if you would fill out this survey</p>
+        <h2 class="h4 mt-4">Your Information</h2>
+        <form>
+            <label>First name</label>
+            <input type="text" name="fname" class="form-control"><br>
+            <label>Last name</label>
+            <input type="text" name="lname" class="form-control"><br>
+            <label>Email</label>
+            <input type="text" name="email" class="form-control"><br>
+            <label>Date of Birth</label>
+            <input type="date" name="dob" class="form-control"><br>
+        </form>
+        <h2 class="h4 mt-4">How did you hear about us</h2>
+        <form>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="source" value="Search engine" id="se">
+                <label class="form-check-label" for="se">Search engine</label>
+              </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="source" value="word of mouth" id="wm">
+                <label class="form-check-label" for="wm">Word of mouth</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="source" value="Social Media" id="sm">
+                <label class="form-check-label" for="sc">Social media</label>
+              </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="source" value="Other" id="o">
+                <label class="form-check-label" for="o">Other</label>
+            </div>
+        </form>
+        <h2 class="h4 mt-4">Would you like to receive announcements about new CDs and special offers?</h2>
+        <form>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="source" value="yes1" id="yes1">
+                <label class="form-check-label" for="yes1">Yes, I'd like that.</label>
+              </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="source" value="yes2" id="yes2">
+                <label class="form-check-label" for="yes2">Yes, please send me email announcements.</label>
+              </div>
+            <p>Please contact me by:
+                <select name="contact_method" class="form-control" style="max-width: 200px;">
+                    <option value="email">Email only</option>
+                    <option value="postal">Postal mail only</option>
+                    <option value="either">Email or postal mail</option>
+                </select>
+            </p>
+        </form>
+        <form action="result.html" method="get">
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </body>
+</div>

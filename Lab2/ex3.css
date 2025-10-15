@@ -1,0 +1,33 @@
+.header, .footer {
+    padding: 12px 16px;
+    border-bottom: 1px solid #e9d7a3;
+    font-weight: bold;
+  }
+.footer { 
+    border-top: 1px solid #e9d7a3;
+    border-bottom: 0;
+  }
+.content {
+    display: flex;
+    min-height: 420px;         
+    border-top: 1px solid #e9d7a3;
+    border-bottom: 1px solid #e9d7a3;
+  }
+
+.sidebar {
+    width: 180px;              
+    padding: 12px 16px;
+    border-right: 1px solid #e9d7a3;
+    font-weight: bold;
+  }
+.sidebar.right {
+    border-right: 0;
+    border-left: 1px solid #e9d7a3;
+  }
+
+.main {
+    flex: 1;                   
+    padding: 12px 16px;
+    border-right: 1px solid #e9d7a3;
+    font-weight: bold;
+  }
