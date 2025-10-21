@@ -8,36 +8,14 @@ menuIcon.onclick = () => {
 };
 
 
-/*========== scroll sections active link ==========*/
-let sections = document.querySelectorAll('section');
-let navLinks = document.querySelectorAll('header nav a');
-
+/*========== sticky navbar ==========*/
 window.onscroll = () => {
-    sections.forEach(sec => {
-        let top = window.scrollY;
-        let offset = sec.offsetTop - 150;
-        let height = sec.offsetHeight;
-        let id = sec.getAttribute('id');
-
-        if (top >= offset && top < offset + height) {
-            navLinks.forEach(links => {
-                links.classList.remove('active');
-                document.querySelector('header nav a[href*=' + id + ']').classList.add('active');
-            });
-        };
-    });
-
-
-    /*========== sticky navbar ==========*/
     let header = document.querySelector('.header');
-
     header.classList.toggle('sticky', window.scrollY > 100);
-
 
     /*========== remove menu icon navbar when click navbar link (scroll) ==========*/
     menuIcon.classList.remove('bx-x');
     navbar.classList.remove('active');
-
 };
 
 
@@ -81,15 +59,27 @@ ScrollReveal().reveal('.home-content h1, .about-img img', { origin: 'left' });
 ScrollReveal().reveal('.home-content h3, .home-content p, .about-content', { origin: 'right' });
 
 function sendEmail() {
-    let prams = {
-        name: document.getElementById("name").value,
-        email: document.getElementById("email").value,
-        phone: document.getElementById("phone").value,
-        subject: document.getElementById("subject").value,
-        message: document.getElementById("message").value
+    let name = document.getElementById("name").value;
+    let email = document.getElementById("email").value;
+    let phone = document.getElementById("phone").value;
+    let subject = document.getElementById("subject").value;
+    let message = document.getElementById("message").value;
+
+    // Check if any field is empty
+    if (!name || !email || !phone || !subject || !message) {
+        alert("Error: Please fill in all fields before sending the message!");
+        return;
     }
 
-    emailjs.send("service_aq8ci44", "template_2jnnyyo", prams).then(alert("Email sent successfully!"));
+    let prams = {
+        name: name,
+        email: email,
+        phone: phone,
+        subject: subject,
+        message: message
+    }
+
+    emailjs.send("service_1w55upm", "template_2jnnyyo", prams).then(alert("Email sent successfully!"));
 
     clearInputField();
 }
