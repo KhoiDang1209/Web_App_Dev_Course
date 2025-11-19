@@ -78,118 +78,76 @@
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>📚 Student Management System</h1>
-        <p class="subtitle">MVC Pattern with Jakarta EE & JSTL</p>
-        
-        <c:if test="${not empty param.message}"><div class="message success">✅ ${param.message}</div></c:if>
-        <c:if test="${not empty param.error}"><div class="message error">❌ ${param.error}</div></c:if>
-        
-        <div class="toolbar">
-            <form action="student" method="get" class="filter-group">
-                <input type="hidden" name="action" value="list">
-                
-                <select name="major" class="form-control">
-                    <option value="">-- All Majors --</option>
-                    <option value="Computer Science" ${selectedMajor == 'Computer Science' ? 'selected' : ''}>Computer Science</option>
-                    <option value="Information Technology" ${selectedMajor == 'Information Technology' ? 'selected' : ''}>Information Technology</option>
-                    <option value="Software Engineering" ${selectedMajor == 'Software Engineering' ? 'selected' : ''}>Software Engineering</option>
-                    <option value="Business Administration" ${selectedMajor == 'Business Administration' ? 'selected' : ''}>Business Administration</option>
-                </select>
-                
-                <input type="text" name="keyword" class="form-control" 
-                       placeholder="Search..." value="${keyword}">
-                
-                <button type="submit" class="btn btn-primary">Apply Filter</button>
-                
-                <c:if test="${not empty selectedMajor or not empty keyword}">
-                    <a href="student?action=list" class="btn btn-secondary">Clear</a>
-                </c:if>
-            </form>
-
-            <a href="student?action=new" class="btn btn-primary">➕ Add New</a>
+    <!-- Navigation Bar -->
+    <div class="navbar">
+        <h2>📚 Student Management System</h2>
+        <div class="navbar-right">
+            <div class="user-info">
+                <span>Welcome, ${sessionScope.fullName}</span>
+                <span class="role-badge role-${sessionScope.role}">
+                    ${sessionScope.role}
+                </span>
+            </div>
+            <a href="dashboard" class="btn-nav">Dashboard</a>
+            <a href="logout" class="btn-logout">Logout</a>
         </div>
-
-        <c:if test="${not empty selectedMajor or not empty keyword}">
-            <p style="margin-bottom: 15px; color: #666;">
-                <c:if test="${not empty selectedMajor}">Filter: <strong>${selectedMajor}</strong></c:if>
-                <c:if test="${not empty selectedMajor and not empty keyword}"> | </c:if>
-                <c:if test="${not empty keyword}">Search: <strong>"${keyword}"</strong></c:if>
-            </p>
+    </div>
+    
+    <div class="container">
+        <h1>📚 Student List</h1>
+        
+        <!-- Add button - Admin only -->
+        <c:if test="${sessionScope.role eq 'admin'}">
+            <div style="margin: 20px 0;">
+                <a href="student?action=new" class="btn-add">➕ Add New Student</a>
+            </div>
         </c:if>
         
-        <c:choose>
-            <c:when test="${not empty students}">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>
-                                <a href="student?action=list&sortBy=id&order=${sortBy == 'id' && order == 'asc' ? 'desc' : 'asc'}&major=${selectedMajor}&keyword=${keyword}">
-                                    ID
-                                    <c:if test="${sortBy == 'id'}"><span class="sort-icon">${order == 'asc' ? '▲' : '▼'}</span></c:if>
-                                </a>
-                            </th>
-                            
-                            <th>
-                                <a href="student?action=list&sortBy=student_code&order=${sortBy == 'student_code' && order == 'asc' ? 'desc' : 'asc'}&major=${selectedMajor}&keyword=${keyword}">
-                                    Student Code
-                                    <c:if test="${sortBy == 'student_code'}"><span class="sort-icon">${order == 'asc' ? '▲' : '▼'}</span></c:if>
-                                </a>
-                            </th>
-                            
-                            <th>
-                                <a href="student?action=list&sortBy=full_name&order=${sortBy == 'full_name' && order == 'asc' ? 'desc' : 'asc'}&major=${selectedMajor}&keyword=${keyword}">
-                                    Full Name
-                                    <c:if test="${sortBy == 'full_name'}"><span class="sort-icon">${order == 'asc' ? '▲' : '▼'}</span></c:if>
-                                </a>
-                            </th>
-                            
-                            <th>
-                                <a href="student?action=list&sortBy=email&order=${sortBy == 'email' && order == 'asc' ? 'desc' : 'asc'}&major=${selectedMajor}&keyword=${keyword}">
-                                    Email
-                                    <c:if test="${sortBy == 'email'}"><span class="sort-icon">${order == 'asc' ? '▲' : '▼'}</span></c:if>
-                                </a>
-                            </th>
-                            
-                            <th>
-                                <a href="student?action=list&sortBy=major&order=${sortBy == 'major' && order == 'asc' ? 'desc' : 'asc'}&major=${selectedMajor}&keyword=${keyword}">
-                                    Major
-                                    <c:if test="${sortBy == 'major'}"><span class="sort-icon">${order == 'asc' ? '▲' : '▼'}</span></c:if>
-                                </a>
-                            </th>
-                            
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <c:forEach var="student" items="${students}">
-                            <tr>
-                                <td>${student.id}</td>
-                                <td><strong>${student.studentCode}</strong></td>
-                                <td>${student.fullName}</td>
-                                <td>${student.email}</td>
-                                <td>${student.major}</td>
-                                <td>
-                                    <div class="actions">
-                                        <a href="student?action=edit&id=${student.id}" class="btn btn-secondary">✏️ Edit</a>
-                                        <a href="student?action=delete&id=${student.id}" class="btn btn-danger" onclick="return confirm('Delete this student?')">🗑️ Delete</a>
-                                    </div>
-                                </td>
-                            </tr>
-                        </c:forEach>
-                    </tbody>
-                </table>
-            </c:when>
-            <c:otherwise>
-                <div class="empty-state">
-                    <div class="empty-state-icon">📭</div>
-                    <h3>No students found</h3>
-                    <p>Try adjusting your filters or add a new student.</p>
-                    <br>
-                    <a href="student?action=list" class="btn btn-secondary">Clear All Filters</a>
-                </div>
-            </c:otherwise>
-        </c:choose>
+        <!-- Student Table -->
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Code</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Major</th>
+                    <c:if test="${sessionScope.role eq 'admin'}">
+                        <th>Actions</th>
+                    </c:if>
+                </tr>
+            </thead>
+            <tbody>
+                <c:forEach var="student" items="${students}">
+                    <tr>
+                        <td>${student.id}</td>
+                        <td>${student.studentCode}</td>
+                        <td>${student.fullName}</td>
+                        <td>${student.email}</td>
+                        <td>${student.major}</td>
+                        
+                        <!-- Action buttons - Admin only -->
+                        <c:if test="${sessionScope.role eq 'admin'}">
+                            <td>
+                                <a href="student?action=edit&id=${student.id}" 
+                                   class="btn-edit">Edit</a>
+                                <a href="student?action=delete&id=${student.id}" 
+                                   class="btn-delete"
+                                   onclick="return confirm('Delete this student?')">Delete</a>
+                            </td>
+                        </c:if>
+                    </tr>
+                </c:forEach>
+                
+                <c:if test="${empty students}">
+                    <tr>
+                        <td colspan="6" style="text-align: center;">
+                            No students found
+                        </td>
+                    </tr>
+                </c:if>
+            </tbody>
+        </table>
     </div>
 </body>
 </html>

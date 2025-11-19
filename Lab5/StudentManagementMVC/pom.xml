@@ -68,6 +68,11 @@
             <version>${jakarta.servlet.jsp.jstl.version}</version>
             <!-- This implementation is needed at runtime, so scope is compile (default) -->
         </dependency>
+        <dependency>
+            <groupId>org.mindrot</groupId>
+            <artifactId>jbcrypt</artifactId>
+            <version>0.4</version>
+        </dependency>
 
         <!-- 
           FIX 2: UPDATED MS SQL SERVER DRIVER.

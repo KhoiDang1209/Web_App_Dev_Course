@@ -21,7 +21,27 @@ public class StudentDAO {
             throw new SQLException("MySQL Driver not found", e);
         }
     }
-    
+    public int getTotalStudents() {
+        // SQL: Count all rows in the students table
+        String sql = "SELECT COUNT(*) FROM students";
+        int count = 0;
+        
+        try (Connection conn = getConnection();
+             Statement stmt = conn.createStatement();
+             ResultSet rs = stmt.executeQuery(sql)) {
+            
+            // The result set will contain exactly one row and one column
+            if (rs.next()) {
+                // Retrieve the count from the first column (index 1)
+                count = rs.getInt(1); 
+            }
+            
+        } catch (SQLException e) {
+            e.printStackTrace();
+            // In case of error, return 0
+        }
+        return count;
+    }
     // Get all students
     public List<Student> getAllStudents() {
         List<Student> students = new ArrayList<>();
