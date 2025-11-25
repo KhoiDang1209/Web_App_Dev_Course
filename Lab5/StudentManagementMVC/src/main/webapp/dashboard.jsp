@@ -184,7 +184,6 @@
     </style>
 </head>
 <body>
-    <!-- Navigation Bar -->
     <div class="navbar">
         <h2>📚 Student Management System</h2>
         <div class="navbar-right">
@@ -194,23 +193,25 @@
                     ${sessionScope.role}
                 </span>
             </div>
+            
+            <a href="change-password" class="btn-logout" style="background: #9b59b6; margin-right: 10px;">
+                Settings ⚙️
+            </a>
+            
             <a href="logout" class="btn-logout">Logout</a>
         </div>
     </div>
     
-    <!-- Main Content -->
     <div class="container">
-        <!-- Welcome Card -->
         <div class="welcome-card">
             <h1>${welcomeMessage}</h1>
             <p>Here's what's happening with your students today.</p>
         </div>
         
-        <!-- Statistics -->
         <div class="stats-grid">
             <div class="stat-card">
                 <div class="stat-icon stat-icon-students">
-                    👨🎓
+                    👨‍🎓
                 </div>
                 <div class="stat-content">
                     <h3>${totalStudents}</h3>
@@ -219,7 +220,6 @@
             </div>
         </div>
         
-        <!-- Quick Actions -->
         <div class="quick-actions">
             <h2>Quick Actions</h2>
             <div class="action-grid">
@@ -236,9 +236,12 @@
                 <a href="student?action=search" class="action-btn action-btn-warning">
                     🔍 Search Students
                 </a>
+                
+                <a href="change-password.jsp" class="action-btn" style="background: #9b59b6;">
+                    🔑 Change Password
+                </a>
             </div>
         </div>
     </div>
 </body>
 </html>
-
